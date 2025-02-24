@@ -80,9 +80,9 @@ map('n', '<A-h>', 'u', opts)
 -- Переназначение повторения отмененных изменений
 map('n', '<A-l>', '<C-r>', opts)
 
--- Выделить вниз на 10 строк (Alt + j)
+-- Выделить вниз на 8 строк (Alt + j)
 map('v', '<S-j>', '8j',  opts)
--- Выделить вверх на 10 строк (Alt + k)
+-- Выделить вверх на 8 строк (Alt + k)
 map('v', '<S-k>', '8k',  opts)
 -- Выделить до начала или конца
 map('v', '<S-h>', '^',  opts)
@@ -146,3 +146,29 @@ end
 
 -- Создание команды для режима normal
 map('n', '"', ':lua insert_type_ignore()<CR>', opts)
+
+-- Открыть терминал
+map("n", "<leader>t", "<cmd>ToggleTerm<cr>", opts)
+
+-- Переключение в Normal-режим из терминала
+map("t", "<leader>n", "<C-\\><C-n>", opts)
+
+-- Быстро закрыть терминал (если надо)
+map("t", "<leader>q", "<cmd>ToggleTerm<cr>", opts)
+
+-- Подключение подсказок для nvim 
+map("n", "<leader>w", "<cmd>WhichKey<cr>", opts)
+
+map("n", "<C-t>", "<cmd>ToggleTerm<CR>", opts) -- Открыть/закрыть терминал
+map("t", "<Esc>", [[<C-\><C-n>]], opts) -- Выйти из терминала в normal mode
+map("t", "<C-t>", "<cmd>ToggleTerm<CR>", opts) -- Закрыть терминал из терминала
+
+-- Открытие терминалов по номерам
+map("n", "<C-1>", "<cmd>ToggleTerm 1<CR>", opts)
+map("n", "<C-2>", "<cmd>ToggleTerm 2<CR>", opts)
+
+-- Переключение между окнами
+map("n", "<C-h>", "<C-w>h", opts) -- Влево
+map("n", "<C-l>", "<C-w>l", opts) -- Вправо
+map("n", "<C-j>", "<C-w>j", opts) -- Вниз
+map("n", "<C-k>", "<C-w>k", opts) -- Вверх
