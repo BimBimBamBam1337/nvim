@@ -71,7 +71,7 @@ end
 -- Привязка для поиска текущего слова с помощью Alt+v
 map('n', '<A-v>', ':lua search_current_word()<CR>', opts)
 -- Установить новую комбинацию клавиш для 'n'
-map('n', '<A-j>', 'n', opts) 
+map('n', '<A-j>', 'n', opts)
 -- Установить новую комбинацию клавиш для 'p'
 map('n', '<A-k>', 'N', opts)
 
@@ -172,3 +172,26 @@ map("n", "<C-h>", "<C-w>h", opts) -- Влево
 map("n", "<C-l>", "<C-w>l", opts) -- Вправо
 map("n", "<C-j>", "<C-w>j", opts) -- Вниз
 map("n", "<C-k>", "<C-w>k", opts) -- Вверх
+
+
+-- 🔹 Treesitter текстовые объекты
+map("o", "af", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@function.outer')<CR>", opts)
+map("o", "if", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@function.inner')<CR>", opts)
+map("o", "ac", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@class.outer')<CR>", opts)
+map("o", "ic", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@class.inner')<CR>", opts)
+
+map("x", "af", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@function.outer')<CR>", opts)
+map("x", "if", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@function.inner')<CR>", opts)
+map("x", "ac", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@class.outer')<CR>", opts)
+map("x", "ic", ":<C-U>lua require'nvim-treesitter.textobjects.select'.select_textobject('@class.inner')<CR>", opts)
+
+-- 🔹 Treesitter перемещение по коду
+map("n", "]f", ":lua require'nvim-treesitter.textobjects.move'.goto_next_start('@function.outer')<CR>", opts)
+map("n", "[f", ":lua require'nvim-treesitter.textobjects.move'.goto_previous_start('@function.outer')<CR>", opts)
+map("n", "]c", ":lua require'nvim-treesitter.textobjects.move'.goto_next_start('@class.outer')<CR>", opts)
+map("n", "[c", ":lua require'nvim-treesitter.textobjects.move'.goto_previous_start('@class.outer')<CR>", opts)
+
+-- 🔹 Treesitter рефакторинг
+map("n", "grr", ":lua require'nvim-treesitter.refactor.smart_rename'.smart_rename()<CR>", opts)
+map("n", "gd", ":lua require'nvim-treesitter.refactor.navigation'.goto_definition()<CR>", opts)
+
