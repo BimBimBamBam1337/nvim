@@ -15,6 +15,10 @@ return {
             enable_diagnostics = true,
             open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
             sort_case_insensitive = false,
+            filtered_items = {
+                visible = true, -- Показывать скрытые файлы
+                hide_gitignored = false, -- Не скрывать файлы из .gitignore
+            },
             default_component_configs = {
                 container = {
                     enable_character_fade = true
@@ -93,6 +97,7 @@ return {
             window = {
                 position = "left",
                 width = 30,
+                auto_expand_width = false,
                 mapping_options = {
                     noremap = true,
                     nowait = true,

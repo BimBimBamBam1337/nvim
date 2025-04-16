@@ -21,6 +21,19 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- local function get_poetry_python()
+--   local handle = io.popen("poetry env info --path")
+--   if handle then
+--     local venv_path = handle:read("*a"):gsub("\n", "")
+--     handle:close()
+--     if venv_path and venv_path ~= "" then
+--       return venv_path .. "/bin/python"
+--     end
+--   end
+--   return nil
+-- end
+--
+-- vim.g.python3_host_prog = get_poetry_python() or "/usr/bin/python3"
 
 -- Setup lazy.nvim
 require("lazy").setup({

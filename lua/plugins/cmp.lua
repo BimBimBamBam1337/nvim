@@ -1,30 +1,24 @@
 
 return {
+    -- Плагины для автодополнения
     "hrsh7th/nvim-cmp",
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "saadparwaiz1/cmp_luasnip",
-        "L3MON4D3/LuaSnip",
+        "hrsh7th/cmp-nvim-lsp",     -- Источник автодополнения для LSP
+        "hrsh7th/cmp-buffer",       -- Источник для слов из текущего буфера
+        "hrsh7th/cmp-path",         -- Источник для файловой системы
+        "saadparwaiz1/cmp_luasnip", -- Источник для сниппетов
+        "L3MON4D3/LuaSnip",         -- Плагин для сниппетов
         "onsails/lspkind.nvim",
-        "neovim/nvim-lspconfig", -- Подключаем LSP
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local lspkind = require("lspkind")
-        local lspconfig = require("lspconfig")
-
-        -- Настройка Pyright для Python
-        lspconfig.pyright.setup({
-            capabilities = require("cmp_nvim_lsp").default_capabilities()
-        })
 
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    luasnip.lsp_expand(args.body) -- Поддержка сниппетов
                 end,
             },
             formatting = {
@@ -32,31 +26,37 @@ return {
                     mode = 'symbol',
                     maxwidth = 50,
                     ellipsis_char = '...',
+                    before = function (entry, vim_item)
+                        return vim_item
+                    end
                 })
             },
             mapping = {
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                ["<A-j>"] = cmp.mapping(function(fallback)
+                ["<C-Space>"] = cmp.mapping.complete(), -- Открыть меню автодополнения
+                ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Подтвердить выбор
+                ["<A-j>"] = cmp.mapping.select_next_item(),  -- Навигация по меню
+                ["<A-k>"] = cmp.mapping.select_prev_item(),  -- Навигация по меню
+                ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_next_item()
+                        cmp.select_next_item()  -- Навигация по меню
                     else
-                        fallback()
+                        fallback()  -- В случае, если меню не видно, выполнить стандартное действие
                     end
                 end, { "i", "s" }),
-                ["<A-k>"] = cmp.mapping(function(fallback)
+
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_prev_item()
+                        cmp.select_prev_item()  -- Навигация по меню
                     else
-                        fallback()
+                        fallback()  -- В случае, если меню не видно, выполнить стандартное действие
                     end
                 end, { "i", "s" }),
             },
             sources = {
-                { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "buffer" },
-                { name = "path" },
+                { name = "nvim_lsp" },    -- Автодополнение от LSP
+                { name = "luasnip" },     -- Сниппеты
+                { name = "buffer" },      -- Слова из буфера
+                { name = "path" },        -- Пути к файлам
             }
         })
     end

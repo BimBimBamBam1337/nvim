@@ -6,7 +6,7 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-treesitter/playground",
-    "p00f/nvim-ts-rainbow",
+    "p00f/nvim-ts-rainbow",  -- Подсветка для скобок
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   config = function()
@@ -19,27 +19,18 @@ return {
       highlight = { enable = true },
       indent = { enable = true },
       autotag = { enable = true },
-      matchup = { enable = true },
-
-      refactor = {
-        highlight_definitions = { enable = true },
-        highlight_current_scope = { enable = false },
-        smart_rename = {
+      textobjects = {
+        select = {
           enable = true,
-          keymaps = { smart_rename = "grr" },
-        },
-        navigation = {
-          enable = true,
+          lookahead = true,
           keymaps = {
-            goto_definition = "gd",
-            list_definitions = "gD",
-            list_definitions_toc = "gO",
-            goto_next_usage = "]r",
-            goto_previous_usage = "[r",
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
           },
         },
       },
-
       rainbow = {
         enable = true,
         extended_mode = true,
