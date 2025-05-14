@@ -1,4 +1,4 @@
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Для обычного и визуального режима
@@ -196,4 +196,29 @@ map("n", "[c", ":lua require'nvim-treesitter.textobjects.move'.goto_previous_sta
 -- 🔹 Treesitter рефакторинг
 map("n", "grr", ":lua require'nvim-treesitter.refactor.smart_rename'.smart_rename()<CR>", opts)
 map("n", "gd", ":lua require'nvim-treesitter.refactor.navigation'.goto_definition()<CR>", opts)
+
+local gitsigns = require('gitsigns')
+-- Actions
+map('n', '<leader>hs', gitsigns.stage_hunk, opts)
+map('n', '<leader>hr', gitsigns.reset_hunk, opts)
+map('n', '<leader>hS', gitsigns.stage_buffer, opts)
+map('n', '<leader>hR', gitsigns.reset_buffer, opts)
+map('n', '<leader>hp', gitsigns.preview_hunk, opts)
+map('n', '<leader>hi', gitsigns.preview_hunk_inline, opts)
+map('n', '<leader>hd', gitsigns.diffthis, opts)
+map('n', '<leader>hq', gitsigns.setqflist, opts)
+
+map('v', '<leader>hs', [[:lua require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })<CR>]], opts)
+map('v', '<leader>hr', [[:lua require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })<CR>]], opts)
+
+map('n', '<leader>hb', [[:lua require('gitsigns').blame_line({ full = true })<CR>]], opts)
+map('n', '<leader>hD', [[:lua require('gitsigns').diffthis('~')<CR>]], opts)
+map('n', '<leader>hQ', [[:lua require('gitsigns').setqflist('all')<CR>]], opts)
+
+-- Toggles
+map('n', '<leader>tb', gitsigns.toggle_current_line_blame, opts)
+map('n', '<leader>tw', gitsigns.toggle_word_diff, opts)
+
+-- Text object
+map({'o', 'x'}, 'ih', gitsigns.select_hunk, opts)
 
