@@ -1,29 +1,45 @@
-
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    -- Кастомная цветовая схема
-    local custom_theme = {
-      normal = { c = { fg = "#906aff", bg = "#1a1a1a" } },
-      insert = { c = { fg = "#906aff", bg = "#00FFD1" } },
-      visual = { c = { fg = "#906aff", bg = "#684ca4" } },
-      replace = { c = { fg = "#906aff", bg = "#d75f5f" } },
-      command = { c = { fg = "#906aff", bg = "#ffd700" } },
-      inactive = { c = { fg = "#5f5f5f", bg = "#1A1A1A" } },
+    local cyber_colors = {
+      purple  = "#c084fc", -- Было #b266ff, теперь насыщенней и ярче
+      green   = "#00ff88", -- Было #00ff66, добавила светлее акцент
+      magenta = "#ff1aff", -- Чуть глубже
+      fg      = "#eeeeee",
+      bg      = "#000000",
+      cyan    = "#5ef1ff", -- Красивый неоновый голубой
+      red     = "#ff5c57",
+      yellow  = "#ffd700",
+      gray    = "#7f7f7f", -- Чуть светлее серый для контраста
     }
 
-    -- Добавляем карты цветов для каждого режима
-    vim.cmd [[
-      highlight NormalMode guifg=#906aff guibg=#1A1A1A
-      highlight InsertMode guifg=#906aff guibg=#00FFD1
-      highlight VisualMode guifg=#906aff guibg=#684CA4
-      highlight ReplaceMode guifg=#906aff guibg=#D75F5F
-      highlight CommandMode guifg=#906aff guibg=#FFD700
-      highlight InactiveMode guifg=#5F5F5F guibg=#1A1A1A
-    ]]
 
-    -- Создание карты режимов с эмодзи и цветами
+    local custom_theme = {
+      normal = { c = { fg = cyber_colors.purple, bg = cyber_colors.bg } },
+      insert = { c = { fg = cyber_colors.bg, bg = cyber_colors.green } },
+      visual = { c = { fg = cyber_colors.bg, bg = cyber_colors.magenta } },
+      replace = { c = { fg = cyber_colors.bg, bg = cyber_colors.red } },
+      command = { c = { fg = cyber_colors.bg, bg = cyber_colors.yellow } },
+      inactive = { c = { fg = cyber_colors.gray, bg = cyber_colors.bg } },
+    }
+
+    vim.cmd(string.format([[
+      highlight NormalMode guifg=%s guibg=%s
+      highlight InsertMode guifg=%s guibg=%s
+      highlight VisualMode guifg=%s guibg=%s
+      highlight ReplaceMode guifg=%s guibg=%s
+      highlight CommandMode guifg=%s guibg=%s
+      highlight InactiveMode guifg=%s guibg=%s
+    ]],
+      cyber_colors.purple, cyber_colors.bg,
+      cyber_colors.bg, cyber_colors.green,
+      cyber_colors.bg, cyber_colors.magenta,
+      cyber_colors.bg, cyber_colors.red,
+      cyber_colors.bg, cyber_colors.yellow,
+      cyber_colors.gray, cyber_colors.bg
+    ))
+
     local mode_map = {
       ["NORMAL"] = "%#NormalMode#󰹑 ",
       ["INSERT"] = "%#InsertMode#󰲔 ",
@@ -33,10 +49,9 @@ return {
       ["REPLACE"] = "%#ReplaceMode#󰲞 ",
       ["COMMAND"] = "%#CommandMode#󰌌 ",
       ["TERMINAL"] = "%#NormalMode# ",
-      ["t"] = "%#NormalMode# ", -- альтернатива для терминала
+      ["t"] = "%#NormalMode# ",
     }
 
-    -- Настройка lualine
     require("lualine").setup({
       options = {
         theme = custom_theme,
@@ -54,14 +69,14 @@ return {
           }
         },
         lualine_b = {
-          { "branch", color = { fg = "#906aff" } },
-          { "diff", color = { fg = "#906aff" } },
-          { "diagnostics", color = { fg = "#906aff" } },
+          { "branch", color = { fg = cyber_colors.purple } },
+          { "diff", color = { fg = cyber_colors.purple } },
+          { "diagnostics", color = { fg = cyber_colors.purple } },
           {
             "progress",
-            color = { fg = "#906aff" }, -- Прогресс в том же цвете
+            color = { fg = cyber_colors.purple },
             fmt = function(str) 
-              return "%#NormalMode#" .. str  -- Применить цвет из темы
+              return "%#NormalMode#" .. str
             end
           }
         },
@@ -69,28 +84,28 @@ return {
           {
             "filename",
             icon = "",
-            color = { fg = "#00FFD1" }
+            color = { fg = cyber_colors.cyan },
           },
           {
             "NEOVIM",
             icon = "󰣸",
-            color = { fg = "#FF00FF", bg = "#1a1a1a", gui = "underline" },
+            color = { fg = cyber_colors.magenta, bg = cyber_colors.bg, gui = "bold" },
           },
         },
         lualine_x = {
-          { function() return string.upper(vim.o.encoding) end, icon = "" },
+          { function() return string.upper(vim.o.encoding) end, icon = "", color = { fg = cyber_colors.green } },
           { 
             function() 
               return ({ unix = "LF", dos = "CRLF", mac = "CR" })[vim.bo.fileformat]
             end,
-            icon = ""
+            icon = "",
+            color = { fg = cyber_colors.yellow }
           },
           "filetype",
         },
-        lualine_y = {}, -- Убрал progress отсюда, он теперь в lualine_b
+        lualine_y = {},
         lualine_z = { "location" },
       },
     })
   end,
 }
-

@@ -9,6 +9,11 @@ map('', '<A-q>', '<Esc>', opts) -- ESCATE
 map('n', '<C-s>', ':w<CR>', opts) -- Сохранение файла по Ctrl+s
 map('n', '<C-q>', ':q<CR>', opts) -- Выход из файла по Ctrl+q
 
+map('n', '<leader>d', "yyp", opts)
+map('n', '<leader>D', "yyP", opts)
+map('v', '<leader>d', "yyp", opts)
+map('v', '<leader>D', "yyP", opts)
+
 -- Переместиться к первому символу строки (Shift + H)
 map('n', '<S-h>', '^', opts)
 -- Переместиться к последнему символу строки (Shift + L)

@@ -9,7 +9,6 @@ return {
       { type = "files",     header = { "   📄 Recent files" } },
       { type = "bookmarks", header = { "   ⭐ Bookmarks" } },
     }
-
     -- Закладки для быстрого доступа
     vim.g.startify_bookmarks = {
       { c = "~/.config/nvim" },
