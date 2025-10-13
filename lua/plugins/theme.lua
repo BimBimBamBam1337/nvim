@@ -1,54 +1,48 @@
 return {
-  "scottmckendry/cyberdream.nvim",
-  lazy = false, -- загружается сразу, если хочешь — можешь поставить true и добавить events
-  priority = 1000, -- важно, чтобы тема загрузилась раньше остальных
+    "navarasu/onedark.nvim",
+  priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
-    require("cyberdream").setup({
-      variant = "default",
-      transparent = true,
-      saturation = 1,
-      italic_comments = true,
-      hide_fillchars = false,
-      borderless_pickers = true,
-      terminal_colors = true,
-      cache = false,
+    -- Lua
+require('onedark').setup  {
+    -- Main options --
+    style = 'deep', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    transparent = false,  -- Show/hide background
+    term_colors = true, -- Change terminal color as per the selected theme style
+    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+    cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
-      overrides = function(colors)
-        return {
-          Comment = { fg = "#696969", bg = "NONE", italic = true },
-          ["@property"] = { fg = colors.magenta, bold = true },
-        }
-      end,
+    -- toggle theme style ---
+    toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+    toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
 
-      colors = {
-        bg = "#000000",
-        green = "#00ff00",
-        dark = {
-          magenta = "#ff00ff",
-          fg = "#eeeeee",
-        },
-        light = {
-          red = "#ff5c57",
-          cyan = "#5ef1ff",
-        },
-      },
+    -- Change code style ---
+    -- Options are italic, bold, underline, none
+    -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
+    code_style = {
+        comments = 'italic',
+        keywords = 'bold',
+        functions = 'none',
+        strings = 'none',
+        variables = 'none'
+    },
 
-      extensions = {
-        telescope = true,
-        notify = true,
-        cmp = true,
-        noice = true,
-        gitsigns = true,
-        treesitter = true,
-        snacks = true,
-      },
-    })
+    -- Lualine options --
+    lualine = {
+        transparent = false, -- lualine center bar transparency
+    },
 
-    vim.cmd.colorscheme("cyberdream")
-    vim.cmd([[
-      highlight Normal guibg=NONE ctermbg=NONE
-      highlight NormalNC guibg=NONE ctermbg=NONE
-      highlight EndOfBuffer guibg=NONE ctermbg=NONE
-    ]])
-  end,
+    -- Custom Highlights --
+    colors = {}, -- Override default colors
+    highlights = {}, -- Override highlight groups
+
+    -- Plugins Config --
+    diagnostics = {
+        darker = true, -- darker colors for diagnostic
+        undercurl = true,   -- use undercurl instead of underline for diagnostics
+        background = true,    -- use background color for virtual text
+    },
+}
+    -- Enable theme
+    require('onedark').load()
+  end
 }

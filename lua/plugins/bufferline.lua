@@ -1,4 +1,3 @@
-
 return {
     'akinsho/bufferline.nvim',
     version = "*",
@@ -27,7 +26,7 @@ return {
                     local icon = level:match("error") and " " or " "
                     return " " .. icon .. count
                 end,
-                separator_style = "slant",
+                separator_style='thick',
                 show_buffer_icons = true,
                 show_buffer_close_icons = true,
                 show_close_icon = true,
@@ -50,4 +49,3 @@ return {
         })
     end
 }
-
