@@ -102,7 +102,6 @@ return {
         lualine_c = {
           {
             "filename",
-            icon = "",
             path = 1,
             color = { fg = colors.fg },
           },
