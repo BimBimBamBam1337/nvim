@@ -56,9 +56,7 @@ return {
                 -- Новый API вместо setup_handlers
                 handlers = {
                     function(server)
-                        vim.lsp.config[server].setup({
-                            capabilities = capabilities,
-                        })
+                        require("lspconfig")[server].setup({ capabilities = capabilities })
                     end,
                 },
             })
