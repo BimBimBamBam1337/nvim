@@ -2,19 +2,21 @@
 vim.o.clipboard = 'unnamedplus' -- Буффер обмена
 -- Отключаем автоматический перенос в режиме ввода
 vim.o.formatoptions = vim.o.formatoptions:gsub("t", "")
-vim.o.textwidth = 80       -- макс ширина текста
-vim.o.wrap = true          -- Включаем визуальный перенос строк
-vim.o.number = true        -- Включить нумерацию строк
-vim.o.shiftwidth = 4       -- Размер отступа при использовании табуляции
-vim.o.expandtab = true     -- Преобразование табуляции в пробелы
-vim.o.smartindent = true   -- Умная автоиндентация
-vim.o.swapfile = false     -- Отключить swap-файл
-vim.o.backup = false       -- Отключить создание бэкапов
-vim.o.hlsearch = true      -- Подсветка результатов поиска
-vim.o.ignorecase = true    -- Игнорировать регистр при поиске
-vim.o.smartcase = true     -- Умный поиск (с учетом регистра, если введено с заглавной буквы)
-vim.opt.laststatus = 3     -- Устанавливает статусбар всегда внизу
-vim.opt.linebreak = true   -- Обрезает слова по границе окна
+vim.o.textwidth = 80     -- макс ширина текста
+vim.o.wrap = true        -- Включаем визуальный перенос строк
+vim.o.number = true      -- Включить нумерацию строк
+vim.o.shiftwidth = 4     -- Размер отступа при использовании табуляции
+vim.o.expandtab = true   -- Преобразование табуляции в пробелы
+vim.o.smartindent = true -- Умная автоиндентация
+vim.o.swapfile = false   -- Отключить swap-файл
+vim.o.backup = false     -- Отключить создание бэкапов
+vim.o.hlsearch = true    -- Подсветка результатов поиска
+vim.o.ignorecase = true  -- Игнорировать регистр при поиске
+vim.o.smartcase = true   -- Умный поиск (с учетом регистра, если введено с заглавной буквы)
+vim.opt.laststatus = 3   -- Устанавливает статусбар всегда внизу
+vim.opt.linebreak = true -- Обрезает слова по границе окна
+vim.opt.relativenumber = true
+vim.opt.guicursor = "i:block"
 vim.o.showmatch = true     -- Включаем подсветку парных скобок
 -- Настройки для улучшения производительности
 vim.o.updatetime = 300     -- Время обновления в мс
@@ -23,7 +25,7 @@ vim.o.termguicolors = true -- Включить поддержку 24-битны�
 -- Установите видимость 5 строк при перемещении вверх или вниз
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 15 -- Устанавливаем количество символов для горизонтальной прокрутки
-
+vim.opt.fillchars:append({ eob = " " })
 -- Настроим подсветку номера строки курсора
 vim.o.cursorline = true                         -- Включаем подсветку текущей строки
 vim.cmd("highlight CursorLineNr guifg=#ffcc00") -- Устанавливаем желтый цвет для номера строки
