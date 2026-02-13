@@ -51,7 +51,7 @@ return {
                     "jsonls",
                     "yamlls",
                     "marksman",
-                    "rust-analyzer",
+                    "rust_analyzer",
                 },
 
                 -- Новый API вместо setup_handlers
